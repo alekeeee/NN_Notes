@@ -1,0 +1,4 @@
+(function() {var implementors = {
+"bitflags":[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.79.0/core/error/trait.Error.html\" title=\"trait core::error::Error\">Error</a> for <a class=\"struct\" href=\"bitflags/parser/struct.ParseError.html\" title=\"struct bitflags::parser::ParseError\">ParseError</a>"]],
+"rustix":[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.79.0/core/error/trait.Error.html\" title=\"trait core::error::Error\">Error</a> for <a class=\"struct\" href=\"rustix/io/struct.Errno.html\" title=\"struct rustix::io::Errno\">Errno</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

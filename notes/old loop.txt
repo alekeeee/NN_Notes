@@ -1,0 +1,64 @@
+                       KeyCode::Right => {
+                            stdout.execute(MoveRight(1)).unwrap();
+                        }
+                        KeyCode::Char('q') => {
+                            disable_raw_mode().unwrap();
+                            break;
+                        }
+                        KeyCode::Down => {
+                            if index < 11{
+                                index += 1;
+                                stdout.execute(MoveTo(0,index)).unwrap();
+                                print!("    {}\r", index.to_string());
+                                stdout.flush().unwrap();
+                                stdout.execute(MoveTo(0,index)).unwrap();
+                            } else if index == 11 {
+                                stdout.execute(MoveTo(0,index )).unwrap();
+                                print!("    {}\r", index.to_string());
+                                stdout.flush().unwrap();
+                                stdout.execute(MoveTo(0,index)).unwrap();
+                            }
+                        }
+                        KeyCode::Up => {
+                            if index > 0 {
+                                index -= 1;
+                                stdout.execute(MoveTo(0,index)).unwrap();
+                                print!("    {}", index.to_string());
+                                stdout.flush().unwrap();
+                                stdout.execute(MoveTo(0,index)).unwrap();
+                            } else if index == 0 {
+                                stdout.execute(MoveTo(0,index)).unwrap();
+                                print!("    {}", index.to_string());
+                                stdout.flush().unwrap();
+                                stdout.execute(MoveTo(0,index)).unwrap();
+                            }
+                        }
+
+
+                        loop {
+            match read().unwrap() {
+                Event::Key(event) => match event {
+
+                    KeyEvent{ code: KeyCode::Char('q'), modifiers: KeyModifiers::CONTROL, ..} => {
+                            let _ = disable_raw_mode().unwrap();
+                            break;
+                    },
+                    KeyEvent { code: KeyCode::Char('l'), modifiers: KeyModifiers::CONTROL, ..} => {
+                            let (w, h) = terminal::size().unwrap();
+                            queue!(stdout, MoveTo(0, h - 1), Clear(ClearType::CurrentLine)).unwrap();
+                            queue!(stdout, Print("Enter index (1-11): ")).unwrap();
+                            stdout.flush().unwrap();
+
+                            let new_index = read_number_input(1,11).unwrap_or(index);
+                            index = new_index;
+                    },
+                        _ => {}
+                },
+                    _ => {}
+            }
+                
+        };
+            std::thread::sleep(Duration::from_millis(10));
+    //render_frame()
+    let _ = disable_raw_mode().unwrap();
+}
